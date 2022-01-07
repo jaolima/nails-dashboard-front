@@ -1,0 +1,15 @@
+@hostname = localhost
+@port = 3333
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+# POST /users
+POST http://{{host}}/users HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+    "name": "John",
+    "email": "michael@michael.com",
+    "password": "1234567",
+    "uriImage": "teste.com"
+}
