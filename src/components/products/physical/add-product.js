@@ -2,8 +2,8 @@ import React, { Fragment, useState } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import CKEditors from "react-ckeditor-component";
 import { connect } from "react-redux";
-import * as productAction  from "../../../actions/products.action"
-import api from '../../../services/api';
+import * as productAction from "../../../actions/products.action";
+import api from "../../../services/api";
 
 import {
   Card,
@@ -19,7 +19,6 @@ import {
   Button,
 } from "reactstrap";
 
-
 import one from "../../../assets/images/pro3/1.jpg";
 import user from "../../../assets/images/user.png";
 
@@ -29,6 +28,10 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   // } = props;
 
   const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState(1);
+  const [color, setColor] = useState(1);
+  const [category, setCategory] = useState(1);
+
   const [file, setFile] = useState();
   const [dummyimgs, setDummyimgs] = useState([
     { img: user },
@@ -58,7 +61,6 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   };
 
   //	image upload
-
   const _handleImgChange = (e, i) => {
     e.preventDefault();
     let reader = new FileReader();
@@ -71,18 +73,42 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     reader.readAsDataURL(image);
   };
 
+  const handleChangeSelect = (e) => {
+    const { name, value } = e.target;
+
+    switch (name) {
+      case "size":
+        setSize(value);
+      case "color":
+        setColor(value);
+      case "category":
+        setCategory(value);
+    }
+  };
+
   const handleValidSubmit = (v) => {
     v.preventDefault();
-    api
-    .post('products', {})
-    .then((res) => {
-     console.log(res)
-    })
-    .catch((error) => {
-      console.log(error)
-      console.log("error")
-    });
-    console.log('submit')
+    const name = v.target.productName.value;
+    const price = v.target.price.value;
+    const productCode = v.target.productCode.value;
+    const aliasColor = v.target.aliasColor.value;
+
+    console.log(price, productCode, name, aliasColor, size, color, category);
+    console.log("vvvv", v.target);
+    // api
+    // .post('products', {
+    //   name,
+    //   price,
+    //   productCode
+    // })
+    // .then((res) => {
+    //  console.log(res)
+    // })
+    // .catch((error) => {
+    //   console.log(error)
+    //   console.log("error")
+    // });
+    console.log("submit");
   };
 
   return (
@@ -141,12 +167,12 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                       <div className="form form-label-center">
                         <FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
-                            Product Name :
+                            Name :
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <Input
                               className="form-control"
-                              name="product_name"
+                              name="productName"
                               id="validationCustom01"
                               type="text"
                               required
@@ -176,7 +202,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           <div className="col-xl-8 col-sm-7">
                             <Input
                               className="form-control "
-                              name="product_code"
+                              name="productCode"
                               id="validationCustomUsername"
                               type="number"
                               required
@@ -188,7 +214,6 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                         </FormGroup>
                       </div>
                       <Form>
-
                         {/* Size */}
                         <FormGroup className="form-group row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
@@ -196,6 +221,8 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <select
+                              name="size"
+                              onChange={handleChangeSelect}
                               className="form-control digits"
                               id="exampleFormControlSelect1"
                             >
@@ -214,6 +241,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <select
+                              onChange={handleChangeSelect}
                               className="form-control digits"
                               id="exampleFormControlSelect1"
                             >
@@ -223,16 +251,16 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             </select>
                           </div>
                         </FormGroup>
-						
-						{/* Alias Color */}
-						<FormGroup className="form-group mb-3 row">
+
+                        {/* Alias Color */}
+                        <FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
                             Alias Color :
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <Input
                               className="form-control "
-                              name="alias_color"
+                              name="aliasColor"
                               id="validationCustomUsername"
                               type="number"
                               required
@@ -240,7 +268,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           </div>
                         </FormGroup>
 
-						{/* Total Products  (QTD) */}
+                        {/* Total Products  (QTD) */}
                         <FormGroup className="form-group row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
                             Total Products :
@@ -262,6 +290,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                               <Input
                                 className="touchspin form-control"
                                 type="text"
+                                name="qtd"
                                 value={quantity}
                                 onChange={handleChange}
                               />
@@ -281,13 +310,15 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           </fieldset>
                         </FormGroup>
 
-						  {/* Categories */}
-						<FormGroup className="form-group row">
+                        {/* Categories */}
+                        <FormGroup className="form-group row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
                             Categories :
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <select
+                              name="category"
+                              onChange={handleChangeSelect}
                               className="form-control digits"
                               id="exampleFormControlSelect1"
                             >
@@ -295,7 +326,6 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             </select>
                           </div>
                         </FormGroup>
-						
 
                         <FormGroup className="form-group row">
                           <Label className="col-xl-3 col-sm-4">
@@ -333,12 +363,11 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   );
 };
 
-
-// const mapStateToProps = (state) => {  
+// const mapStateToProps = (state) => {
 
 // };
 
-// const mapDispatchToProps = {  
+// const mapDispatchToProps = {
 //   storeProducts: productAction.storeProducts
 // };
 
