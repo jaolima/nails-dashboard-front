@@ -27,11 +27,12 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   //   storeProducts
   // } = props;
 
-  const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState(1);
-  const [color, setColor] = useState(1);
-  const [category, setCategory] = useState(1);
-
+  const [qtd, setQuantity] = useState(0);
+  const [size, setSize] = useState("");
+  const [type, setType] = useState("");
+  const [color, setColor] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
   const [file, setFile] = useState();
   const [dummyimgs, setDummyimgs] = useState([
     { img: user },
@@ -43,15 +44,15 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   ]);
 
   const IncrementItem = () => {
-    if (quantity < 9) {
-      setQuantity(quantity + 1);
+    if (qtd < 9) {
+      setQuantity(qtd + 1);
     } else {
       return null;
     }
   };
   const DecreaseItem = () => {
-    if (quantity > 0) {
-      setQuantity(quantity - 1);
+    if (qtd > 0) {
+      setQuantity(qtd - 1);
     } else {
       return null;
     }
@@ -73,42 +74,42 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     reader.readAsDataURL(image);
   };
 
-  const handleChangeSelect = (e) => {
-    const { name, value } = e.target;
+  const onChangeDesc = (e) => {
+    const data = e.editor.getData();
+    setDescription(data)
+    console.log(data)
+  }
 
-    switch (name) {
-      case "size":
-        setSize(value);
-      case "color":
-        setColor(value);
-      case "category":
-        setCategory(value);
-    }
-  };
+  const handleValidSubmit = (e) => {
+    e.preventDefault();
+    const price = e.target.price.value;
+    const barcode = e.target.barcode.value;
+    const top_products = e.target.top_products.value;
+    const discount = e.target.discount.value;
+    // const alias_color = e.target.alias_color.value;
+    // const name = v.target.name.value;
 
-  const handleValidSubmit = (v) => {
-    v.preventDefault();
-    const name = v.target.productName.value;
-    const price = v.target.price.value;
-    const productCode = v.target.productCode.value;
-    const aliasColor = v.target.aliasColor.value;
-
-    console.log(price, productCode, name, aliasColor, size, color, category);
-    console.log("vvvv", v.target);
-    // api
-    // .post('products', {
-    //   name,
-    //   price,
-    //   productCode
-    // })
-    // .then((res) => {
-    //  console.log(res)
-    // })
-    // .catch((error) => {
-    //   console.log(error)
-    //   console.log("error")
-    // });
-    console.log("submit");
+    api
+      .post("products", {
+        price,
+        barcode,
+        size,
+        type,
+        qtd,
+        description,
+        color,
+        // alias_color,
+        // name,
+        top_products,
+        discount
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("error");
+      });
   };
 
   return (
@@ -165,45 +166,134 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                       onSubmit={handleValidSubmit}
                     >
                       <div className="form form-label-center">
+                        {/* Name */}
                         <FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
-                            Name :
+                            Name:
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <Input
                               className="form-control"
-                              name="productName"
-                              id="validationCustom01"
+                              name="name"
+                              id="name"
                               type="text"
                               required
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
                         </FormGroup>
+
+                        {/* Type */}
+                        <FormGroup className="form-group row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
+                            Type:
+                          </Label>
+                          <div className="col-xl-8 col-sm-7">
+                            <select
+                              name="type"
+                              value={type}
+                              onChange={(e) => setType(e.target.value)}
+                              className="form-control digits"
+                              id="type"
+                            >
+                              <option value={1}>Gel</option>
+                              <option value={2}>Eletronic</option>
+                              <option value={3}>Powder</option>
+                              <option value={4}>Liquid</option>
+                            </select>
+                          </div>
+                        </FormGroup>
+
+                        {/* Top product */}
+                        <div className="form-group row">
+                          <Label className="col-xl-3 col-md-4">
+                            Top product:
+                          </Label>
+                          <Row>
+                            <Col xl="3" sm="4"></Col>
+                            <Col xl="9" sm="8">
+                              <FormGroup className="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                <Label className="d-block">
+                                  <Input
+                                    className="radio_animated"
+                                    id="top_products_yes"
+                                    type="radio"
+                                    name="top_products"
+                                  />
+                                  Yes
+                                </Label>
+                                <Label className="d-block">
+                                  <Input
+                                    className="radio_animated"
+                                    id="top_products_no"
+                                    type="radio"
+                                    name="top_products"
+                                    defaultChecked
+                                  />
+                                  No
+                                </Label>
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </div>
+
+                        {/* Price (CHF) */}
                         <FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
-                            Price :
+                            Price (CHF):
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <Input
                               className="form-control mb-0"
                               name="price"
-                              id="validationCustom02"
+                              id="price"
                               type="number"
                               required
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
                         </FormGroup>
+
+                        {/* Discount */}
                         <FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
-                            Product Code :
+                            Discount (%):
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <Input
-                              className="form-control "
-                              name="productCode"
-                              id="validationCustomUsername"
+                              className="form-control mb-0"
+                              name="discount"
+                              id="discount"
+                              type="number"
+                              maxLength={3}
+                              pattern="[+-]?\d+(?:[.,]\d+)?"
+                              required
+                            />
+                          </div>
+                          <div className="valid-feedback">Looks good!</div>
+                        </FormGroup>
+
+                        {/* Images */}
+                        <FormGroup className="form-group mb-3 row">
+                        <Label className="col-xl-3 col-sm-4 mb-0">
+                            Images:
+                          </Label>
+
+                          <Button type="submit" color="primary">
+                            Add Images
+                          </Button>
+                        </FormGroup>
+
+                        {/* Product Code */}
+                        <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
+                            Product Code:
+                          </Label>
+                          <div className="col-xl-8 col-sm-7">
+                            <Input
+                              className="form-control"
+                              name="barcode"
+                              id="barcode"
                               type="number"
                               required
                             />
@@ -213,18 +303,20 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           </div>
                         </FormGroup>
                       </div>
+
                       <Form>
                         {/* Size */}
                         <FormGroup className="form-group row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
-                            Size :
+                            Size:
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <select
                               name="size"
-                              onChange={handleChangeSelect}
+                              value={size}
+                              onChange={(e) => setSize(e.target.value)}
                               className="form-control digits"
-                              id="exampleFormControlSelect1"
+                              id="size"
                             >
                               <option>Small</option>
                               <option>Medium</option>
@@ -237,11 +329,13 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                         {/* Color */}
                         <FormGroup className="form-group row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
-                            Color :
+                            Color:
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <select
-                              onChange={handleChangeSelect}
+                              name="color"
+                              value={color}
+                              onChange={(e) => setColor(e.target.value)}
                               className="form-control digits"
                               id="exampleFormControlSelect1"
                             >
@@ -259,10 +353,10 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <Input
-                              className="form-control "
-                              name="aliasColor"
-                              id="validationCustomUsername"
-                              type="number"
+                              className="form-control"
+                              name="alias_color"
+                              id="alias_color"
+                              type="text"
                               required
                             />
                           </div>
@@ -271,7 +365,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                         {/* Total Products  (QTD) */}
                         <FormGroup className="form-group row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
-                            Total Products :
+                            Total Products:
                           </Label>
                           <fieldset className="qty-box ml-0">
                             <div className="input-group bootstrap-touchspin">
@@ -291,7 +385,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                                 className="touchspin form-control"
                                 type="text"
                                 name="qtd"
-                                value={quantity}
+                                value={qtd}
                                 onChange={handleChange}
                               />
                               <div className="input-group-append">
@@ -313,31 +407,36 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                         {/* Categories */}
                         <FormGroup className="form-group row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
-                            Categories :
+                            Categories:
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <select
+                              value={category}
                               name="category"
-                              onChange={handleChangeSelect}
+                              onChange={(e) => setCategory(e.target.value)}
                               className="form-control digits"
-                              id="exampleFormControlSelect1"
+                              id="category"
                             >
                               <option>test</option>
+                              <option>test 1</option>
+                              <option>test 2</option>
                             </select>
                           </div>
                         </FormGroup>
 
                         <FormGroup className="form-group row">
                           <Label className="col-xl-3 col-sm-4">
-                            Add Description :
+                            Add Description:
                           </Label>
                           <div className="col-xl-8 col-sm-7 description-sm">
                             <CKEditors
                               activeclassName="p10"
+                              name="description"
+                              content={description}
                               events={{
                                 blur: onBlur,
                                 afterPaste: afterPaste,
-                                change: onChange,
+                                change: onChangeDesc,
                               }}
                             />
                           </div>

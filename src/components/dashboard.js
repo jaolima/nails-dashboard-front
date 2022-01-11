@@ -195,7 +195,7 @@ const Dashboard = () => {
 									<Media body className="col-8">
 										<span className="m-0">Earnings</span>
 										<h3 className="mb-0">
-											$ <CountUp className="counter" end={6659} />
+											$ <CountUp className="counter" end={0} />
 											<small> This Month</small>
 										</h3>
 									</Media>
@@ -215,7 +215,7 @@ const Dashboard = () => {
 									<Media body className="col-8">
 										<span className="m-0">Products</span>
 										<h3 className="mb-0">
-											$ <CountUp className="counter" end={9856} />
+											$ <CountUp className="counter" end={2} />
 											<small> This Month</small>
 										</h3>
 									</Media>
