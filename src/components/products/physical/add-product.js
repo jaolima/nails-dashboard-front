@@ -76,9 +76,9 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
 
   const onChangeDesc = (e) => {
     const data = e.editor.getData();
-    setDescription(data)
-    console.log(data)
-  }
+    setDescription(data);
+    console.log(data);
+  };
 
   const handleValidSubmit = (e) => {
     e.preventDefault();
@@ -86,9 +86,10 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     const barcode = e.target.barcode.value;
     const top_products = e.target.top_products.value;
     const discount = e.target.discount.value;
-    // const alias_color = e.target.alias_color.value;
-    // const name = v.target.name.value;
+    const name = e.target.name.value;
+    const alias_color = e.target.alias_color.value;
 
+    console.log("target", e.target);
     api
       .post("products", {
         price,
@@ -98,10 +99,10 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
         qtd,
         description,
         color,
-        // alias_color,
-        // name,
+        alias_color,
+        name,
         top_products,
-        discount
+        discount,
       })
       .then((res) => {
         console.log(res);
@@ -275,7 +276,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
 
                         {/* Images */}
                         <FormGroup className="form-group mb-3 row">
-                        <Label className="col-xl-3 col-sm-4 mb-0">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
                             Images:
                           </Label>
 
@@ -304,144 +305,140 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                         </FormGroup>
                       </div>
 
-                      <Form>
-                        {/* Size */}
-                        <FormGroup className="form-group row">
-                          <Label className="col-xl-3 col-sm-4 mb-0">
-                            Size:
-                          </Label>
-                          <div className="col-xl-8 col-sm-7">
-                            <select
-                              name="size"
-                              value={size}
-                              onChange={(e) => setSize(e.target.value)}
-                              className="form-control digits"
-                              id="size"
-                            >
-                              <option>Small</option>
-                              <option>Medium</option>
-                              <option>Large</option>
-                              <option>Extra Large</option>
-                            </select>
-                          </div>
-                        </FormGroup>
+                      {/* Size */}
+                      <FormGroup className="form-group row">
+                        <Label className="col-xl-3 col-sm-4 mb-0">Size:</Label>
+                        <div className="col-xl-8 col-sm-7">
+                          <select
+                            name="size"
+                            value={size}
+                            onChange={(e) => setSize(e.target.value)}
+                            className="form-control digits"
+                            id="size"
+                          >
+                            <option>Small</option>
+                            <option>Medium</option>
+                            <option>Large</option>
+                            <option>Extra Large</option>
+                          </select>
+                        </div>
+                      </FormGroup>
 
-                        {/* Color */}
-                        <FormGroup className="form-group row">
-                          <Label className="col-xl-3 col-sm-4 mb-0">
-                            Color:
-                          </Label>
-                          <div className="col-xl-8 col-sm-7">
-                            <select
-                              name="color"
-                              value={color}
-                              onChange={(e) => setColor(e.target.value)}
-                              className="form-control digits"
-                              id="exampleFormControlSelect1"
-                            >
-                              <option>Blue</option>
-                              <option>Red</option>
-                              <option>Green</option>
-                            </select>
-                          </div>
-                        </FormGroup>
-
-                        {/* Alias Color */}
-                        <FormGroup className="form-group mb-3 row">
-                          <Label className="col-xl-3 col-sm-4 mb-0">
-                            Alias Color :
-                          </Label>
-                          <div className="col-xl-8 col-sm-7">
-                            <Input
-                              className="form-control"
-                              name="alias_color"
-                              id="alias_color"
-                              type="text"
-                              required
-                            />
-                          </div>
-                        </FormGroup>
-
-                        {/* Total Products  (QTD) */}
-                        <FormGroup className="form-group row">
-                          <Label className="col-xl-3 col-sm-4 mb-0">
-                            Total Products:
-                          </Label>
-                          <fieldset className="qty-box ml-0">
-                            <div className="input-group bootstrap-touchspin">
-                              <div className="input-group-prepend">
-                                <Button
-                                  className="btn btn-primary btn-square bootstrap-touchspin-down"
-                                  type="button"
-                                  onClick={DecreaseItem}
-                                >
-                                  <i className="fa fa-minus"></i>
-                                </Button>
-                              </div>
-                              <div className="input-group-prepend">
-                                <span className="input-group-text bootstrap-touchspin-prefix"></span>
-                              </div>
-                              <Input
-                                className="touchspin form-control"
-                                type="text"
-                                name="qtd"
-                                value={qtd}
-                                onChange={handleChange}
-                              />
-                              <div className="input-group-append">
-                                <span className="input-group-text bootstrap-touchspin-postfix"></span>
-                              </div>
-                              <div className="input-group-append ml-0">
-                                <Button
-                                  className="btn btn-primary btn-square bootstrap-touchspin-up"
-                                  type="button"
-                                  onClick={IncrementItem}
-                                >
-                                  <i className="fa fa-plus"></i>
-                                </Button>
-                              </div>
+                      {/* Total Products  (QTD) */}
+                      <FormGroup className="form-group row">
+                        <Label className="col-xl-3 col-sm-4 mb-0">
+                          Total Products:
+                        </Label>
+                        <fieldset className="qty-box ml-0">
+                          <div className="input-group bootstrap-touchspin">
+                            <div className="input-group-prepend">
+                              <Button
+                                className="btn btn-primary btn-square bootstrap-touchspin-down"
+                                type="button"
+                                onClick={DecreaseItem}
+                              >
+                                <i className="fa fa-minus"></i>
+                              </Button>
                             </div>
-                          </fieldset>
-                        </FormGroup>
-
-                        {/* Categories */}
-                        <FormGroup className="form-group row">
-                          <Label className="col-xl-3 col-sm-4 mb-0">
-                            Categories:
-                          </Label>
-                          <div className="col-xl-8 col-sm-7">
-                            <select
-                              value={category}
-                              name="category"
-                              onChange={(e) => setCategory(e.target.value)}
-                              className="form-control digits"
-                              id="category"
-                            >
-                              <option>test</option>
-                              <option>test 1</option>
-                              <option>test 2</option>
-                            </select>
-                          </div>
-                        </FormGroup>
-
-                        <FormGroup className="form-group row">
-                          <Label className="col-xl-3 col-sm-4">
-                            Add Description:
-                          </Label>
-                          <div className="col-xl-8 col-sm-7 description-sm">
-                            <CKEditors
-                              activeclassName="p10"
-                              name="description"
-                              content={description}
-                              events={{
-                                blur: onBlur,
-                                afterPaste: afterPaste,
-                                change: onChangeDesc,
-                              }}
+                            <div className="input-group-prepend">
+                              <span className="input-group-text bootstrap-touchspin-prefix"></span>
+                            </div>
+                            <Input
+                              className="touchspin form-control"
+                              type="text"
+                              name="qtd"
+                              value={qtd}
+                              onChange={handleChange}
                             />
+                            <div className="input-group-append">
+                              <span className="input-group-text bootstrap-touchspin-postfix"></span>
+                            </div>
+                            <div className="input-group-append ml-0">
+                              <Button
+                                className="btn btn-primary btn-square bootstrap-touchspin-up"
+                                type="button"
+                                onClick={IncrementItem}
+                              >
+                                <i className="fa fa-plus"></i>
+                              </Button>
+                            </div>
                           </div>
-                        </FormGroup>
-                      </Form>
+                        </fieldset>
+                      </FormGroup>
+                      
+                      {/* Color */}
+                      <FormGroup className="form-group row">
+                        <Label className="col-xl-3 col-sm-4 mb-0">Color:</Label>
+                        <div className="col-xl-8 col-sm-7">
+                          <select
+                            name="color"
+                            value={color}
+                            onChange={(e) => setColor(e.target.value)}
+                            className="form-control digits"
+                            id="color"
+                          >
+                            <option>Blue</option>
+                            <option>Red</option>
+                            <option>Green</option>
+                          </select>
+                        </div>
+                      </FormGroup>
+
+                      {/* Alias Color */}
+                      <FormGroup className="form-group mb-3 row">
+                        <Label className="col-xl-3 col-sm-4 mb-0">
+                          Alias Color:
+                        </Label>
+                        <div className="col-xl-8 col-sm-7">
+                          <Input
+                            className="form-control"
+                            name="alias_color"
+                            id="alias_color"
+                            type="text"
+                            required
+                          />
+                        </div>
+                        <div className="valid-feedback">Looks good!</div>
+                      </FormGroup>
+
+                      {/* Categories */}
+                      <FormGroup className="form-group row">
+                        <Label className="col-xl-3 col-sm-4 mb-0">
+                          Categories:
+                        </Label>
+                        <div className="col-xl-8 col-sm-7">
+                          <select
+                            value={category}
+                            name="category"
+                            onChange={(e) => setCategory(e.target.value)}
+                            className="form-control digits"
+                            id="category"
+                          >
+                            <option>test</option>
+                            <option>test 1</option>
+                            <option>test 2</option>
+                          </select>
+                        </div>
+                      </FormGroup>
+
+                      <FormGroup className="form-group row">
+                        <Label className="col-xl-3 col-sm-4">
+                          Add Description:
+                        </Label>
+                        <div className="col-xl-8 col-sm-7 description-sm">
+                          <CKEditors
+                            activeclassName="p10"
+                            name="description"
+                            content={description}
+                            events={{
+                              blur: onBlur,
+                              afterPaste: afterPaste,
+                              change: onChangeDesc,
+                            }}
+                          />
+                        </div>
+                      </FormGroup>
+
                       <div className="offset-xl-3 offset-sm-4">
                         <Button type="submit" color="primary">
                           Add
