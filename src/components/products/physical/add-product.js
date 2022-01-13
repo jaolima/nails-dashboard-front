@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import CKEditors from "react-ckeditor-component";
-import { connect } from "react-redux";
-import * as productAction from "../../../actions/products.action";
+// import { connect } from "react-redux";
+// import * as productAction from "../../../actions/products.action";
 import api from "../../../services/api";
 
 import {
@@ -34,6 +34,8 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState();
+  const [photo, setPhoto] = useState();
+  const [imgUrl, setImgUrl] = useState();
   const [dummyimgs, setDummyimgs] = useState([
     { img: user },
     { img: user },
@@ -88,6 +90,8 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     const discount = e.target.discount.value;
     const name = e.target.name.value;
     const alias_color = e.target.alias_color.value;
+    const uri_image = imgUrl;
+    const id_category = 1;
 
     console.log("target", e.target);
     api
@@ -103,6 +107,8 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
         name,
         top_products,
         discount,
+        uri_image,
+        id_category
       })
       .then((res) => {
         console.log(res);
@@ -131,7 +137,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                       <Row>
                         <Col xl="9 xl-50" sm="6 col-9">
                           <img
-                            src={one}
+                            src={photo ? photo : one}
                             alt=""
                             className="img-fluid image_zoom_1 blur-up lazyloaded"
                           />
@@ -218,6 +224,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                                   <Input
                                     className="radio_animated"
                                     id="top_products_yes"
+                                    value={true}
                                     type="radio"
                                     name="top_products"
                                   />
@@ -227,6 +234,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                                   <Input
                                     className="radio_animated"
                                     id="top_products_no"
+                                    value={false}
                                     type="radio"
                                     name="top_products"
                                     defaultChecked
@@ -276,13 +284,34 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
 
                         {/* Images */}
                         <FormGroup className="form-group mb-3 row">
-                          <Label className="col-xl-3 col-sm-4 mb-0">
+                        <Label className="col-xl-3 col-sm-4 mb-0">
                             Images:
                           </Label>
-
-                          <Button type="submit" color="primary">
+                        <input
+                            accept="image/*"
+                            style={{ display: "none" }}
+                            id="photo"
+                            multiple
+                            // value={photo}
+                            onChange={(e) => {
+                              console.log('test')
+                              var output = document.getElementById("photo");
+                              output.src = URL.createObjectURL(
+                                e.target.files[0]
+                              );
+                              output.onload = function () {
+                                URL.revokeObjectURL(output.src);
+                              };
+                              setPhoto(output.src);
+                              setImgUrl('https://uploads.metropoles.com/wp-content/uploads/2020/09/02142841/WhatsApp-Image-2020-09-01-at-16.00.54-768x1024.jpeg')
+                            }}
+                            type="file"
+                          />
+                          <label color="primary" htmlFor="photo" className="col-xl-3 col-sm-4 mb-0">
                             Add Images
-                          </Button>
+                          </label>
+
+                       
                         </FormGroup>
 
                         {/* Product Code */}
@@ -365,7 +394,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           </div>
                         </fieldset>
                       </FormGroup>
-                      
+
                       {/* Color */}
                       <FormGroup className="form-group row">
                         <Label className="col-xl-3 col-sm-4 mb-0">Color:</Label>
