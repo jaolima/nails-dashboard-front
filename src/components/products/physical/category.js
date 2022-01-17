@@ -24,6 +24,7 @@ import api from "../../../services/api";
 
 const Category = () => {
   const [open, setOpen] = useState(false);
+  const [categories, setCategories] = useState([{}]);
 
   const onOpenModal = () => {
     setOpen(true);
@@ -38,9 +39,13 @@ const Category = () => {
 	.get("categories")
 	.then((res) => {
 		const data = res.data;
-		data.map = (item) => {
-			console.log(item);
+    console.log(data)
+		const dataFormat = data.map = (item) => {
+		return	[{
+      category: item.name,
+      }]
 		}
+    setCategories(dataFormat);
 	})
 	.catch((error) => {
 	  console.log(error);
@@ -91,7 +96,7 @@ const Category = () => {
                           </Label>
                           <Input type="text" className="form-control" />
                         </FormGroup>
-                        <FormGroup>
+                        {/* <FormGroup>
                           <Label
                             htmlFor="message-text"
                             className="col-form-label"
@@ -103,7 +108,7 @@ const Category = () => {
                             id="validationCustom02"
                             type="file"
                           />
-                        </FormGroup>
+                        </FormGroup> */}
                       </Form>
                     </ModalBody>
                     <ModalFooter>
@@ -127,7 +132,7 @@ const Category = () => {
                 <div className="clearfix"></div>
                 <div id="basicScenario" className="product-physical">
                   <Datatable
-                    myData={data}
+                    myData={categories}
                     multiSelectOption={false}
                     pageSize={10}
                     pagination={true}

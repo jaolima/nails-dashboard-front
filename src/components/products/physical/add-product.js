@@ -4,6 +4,8 @@ import CKEditors from "react-ckeditor-component";
 // import { connect } from "react-redux";
 // import * as productAction from "../../../actions/products.action";
 // import api from "../../../services/api";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import {
   Card,
@@ -22,7 +24,7 @@ import {
 import one from "../../../assets/images/pro3/1.jpg";
 import user from "../../../assets/images/user.png";
 import api from "../../../services/api";
-import axios from 'axios';
+import axios from "axios";
 
 const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   // const {
@@ -92,35 +94,48 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     const discount = e.target.discount.value;
     const name = e.target.name.value;
     const alias_color = e.target.alias_color.value;
-    const uri_image = imgUrl;
+    const uri_image =
+      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.missnails.com.br%2Funhas%2Fstar-nail%2Facrygel-star-nails-28g&psig=AOvVaw1O-2ncWAq_AcOpR3-FOKMu&ust=1642476359115000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMDk4LHrt_UCFQAAAAAdAAAAABAD";
     const id_category = 1;
 
     var bodyFormData = new FormData();
 
-    bodyFormData.append('price', price);
-    bodyFormData.append('barcode', barcode);
-    bodyFormData.append('size', size);
-    bodyFormData.append('type', type);
-    bodyFormData.append('qtd', qtd);
-    bodyFormData.append('description', description);
-    bodyFormData.append('color', color);
-    bodyFormData.append('alias_color', alias_color);
-    bodyFormData.append('name', name);
-    bodyFormData.append('top_products', top_products);
-    bodyFormData.append('discount', discount);
-    bodyFormData.append('uri_image', uri_image);
-    bodyFormData.append('id_category', id_category);
-    
+    bodyFormData.append("price", price);
+    bodyFormData.append("barcode", barcode);
+    bodyFormData.append("size", size);
+    bodyFormData.append("type", type);
+    bodyFormData.append("qtd", qtd);
+    bodyFormData.append("description", description);
+    bodyFormData.append("color", color);
+    bodyFormData.append("alias_color", alias_color);
+    bodyFormData.append("name", name);
+    bodyFormData.append("top_products", top_products);
+    bodyFormData.append("discount", discount);
+    bodyFormData.append("uri_image", uri_image);
+    bodyFormData.append("image", imgUrl);
+    bodyFormData.append("id_category", id_category);
+
     axios({
       method: "post",
-      url: `http://65.21.146.141:3333/products`,
+      url: `http://localhost:3333/products`,
       data: bodyFormData,
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        console.log(res);
+      const {data} = res;
+        Swal.fire({
+          title: "Success!",
+          text: data,
+          icon: "success",
+        });
       })
       .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Server error...",
+          text: error,
+          footer: 'Contact support',
+        });
         console.log(error);
         console.log("error");
       });
@@ -210,6 +225,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                               className="form-control digits"
                               id="type"
                             >
+                              <option value={null}></option>
                               <option value={1}>Gel</option>
                               <option value={2}>Eletronic</option>
                               <option value={3}>Powder</option>
@@ -256,7 +272,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                         {/* Price (CHF) */}
                         <FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
-                            Price (CHF):
+                            Price (Dólar):
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <Input
@@ -291,10 +307,10 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
 
                         {/* Images */}
                         <FormGroup className="form-group mb-3 row">
-                        <Label className="col-xl-3 col-sm-4 mb-0">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
                             Images:
                           </Label>
-                        <input
+                          <input
                             accept="image/*"
                             style={{ display: "none" }}
                             id="photo"
@@ -308,17 +324,19 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                               output.onload = function () {
                                 URL.revokeObjectURL(output.src);
                               };
-                              console.log('qwdqwd', e.target.files);
+                              console.log("qwdqwd", e.target.files);
                               setPhoto(output.src);
-                              setImgUrl(e.target.files[0])
+                              setImgUrl(e.target.files[0]);
                             }}
                             type="file"
                           />
-                          <label color="primary" htmlFor="photo" className="col-xl-3 col-sm-4 mb-0">
+                          <label
+                            color="primary"
+                            htmlFor="photo"
+                            className="col-xl-3 col-sm-4 mb-0"
+                          >
                             Add Images
                           </label>
-
-                       
                         </FormGroup>
 
                         {/* Product Code */}
@@ -352,6 +370,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             className="form-control digits"
                             id="size"
                           >
+                             <option value={null}></option>
                             <option>Small</option>
                             <option>Medium</option>
                             <option>Large</option>
@@ -413,6 +432,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             className="form-control digits"
                             id="color"
                           >
+                             <option value={null}></option>
                             <option>Blue</option>
                             <option>Red</option>
                             <option>Green</option>
@@ -450,6 +470,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             className="form-control digits"
                             id="category"
                           >
+                             <option value={null}></option>
                             <option>test</option>
                             <option>test 1</option>
                             <option>test 2</option>
