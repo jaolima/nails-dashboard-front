@@ -117,7 +117,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
 
     axios({
       method: "post",
-      url: `http://localhost:3333/products`,
+      url: `http://65.21.146.141:3333/products`,
       data: bodyFormData,
       headers: { "Content-Type": "multipart/form-data" },
     })

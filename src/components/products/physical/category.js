@@ -35,23 +35,29 @@ const Category = () => {
   };
 
   useEffect(() => {
-	api
-	.get("categories")
-	.then((res) => {
-		const data = res.data;
-    console.log(data)
-		const dataFormat = data.map = (item) => {
-		return	[{
-      category: item.name,
-      }]
-		}
-    setCategories(dataFormat);
-	})
-	.catch((error) => {
-	  console.log(error);
-	  console.log("error");
-	});
-}, []);
+    api
+      .get("categories")
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        var dataFormat = [];
+        if (data) {
+          data.map = (item) => {
+            dataFormat.push({
+              category: item.name,
+            });
+          };
+          setCategories(dataFormat);
+          console.log("perreps");
+          console.log(dataFormat);
+          console.log(categories);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("error");
+      });
+  }, []);
 
   return (
     <Fragment>
