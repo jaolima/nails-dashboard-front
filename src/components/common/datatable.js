@@ -173,18 +173,18 @@ const Datatable = ({ myData, myClass, multiSelectOption, pagination }) => {
 						>
 							<ModalHeader toggle={onCloseModal}>
 								<h5 className="modal-title f-w-600" id="exampleModalLabel2">
-									Edit Product
+									Edit category
 								</h5>
 							</ModalHeader>
 							<ModalBody>
 								<Form>
 									<FormGroup>
 										<Label htmlFor="recipient-name" className="col-form-label">
-											Category Name :
+											Name :
 										</Label>
 										<Input type="text" className="form-control" />
 									</FormGroup>
-									<FormGroup>
+									{/* <FormGroup>
 										<Label htmlFor="message-text" className="col-form-label">
 											Category Image :
 										</Label>
@@ -193,7 +193,7 @@ const Datatable = ({ myData, myClass, multiSelectOption, pagination }) => {
 											id="validationCustom02"
 											type="file"
 										/>
-									</FormGroup>
+									</FormGroup> */}
 								</Form>
 							</ModalBody>
 							<ModalFooter>

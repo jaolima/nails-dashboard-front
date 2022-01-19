@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import CKEditors from "react-ckeditor-component";
 import Swal from "sweetalert2";
@@ -19,12 +19,13 @@ import {
 import one from "../../../assets/images/pro3/1.jpg";
 import user from "../../../assets/images/user.png";
 import axios from "axios";
-
+import api from "../../../services/api";
 const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   // const {
   //   storeProducts
   // } = props;
 
+  const [categories, setCategories] = useState([]);
   const [qtd, setQuantity] = useState(0);
   const [size, setSize] = useState("");
   const [type, setType] = useState("");
@@ -42,6 +43,30 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     { img: user },
     { img: user },
   ]);
+
+  useEffect(() => {
+    api
+      .get("categories")
+      .then((res) => {
+        const data = res.data;
+        var dataFormat = [];
+
+        if (data) {
+          data.map(function (item) {
+            dataFormat.push({
+              category: item.name,
+            });
+          });
+          if (dataFormat) {
+            setCategories(dataFormat);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("error");
+      });
+  }, []);
 
   const IncrementItem = () => {
     if (qtd < 9) {
@@ -207,7 +232,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                         </FormGroup>
 
                         {/* Type */}
-                        <FormGroup className="form-group row">
+                        {/* <FormGroup className="form-group row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
                             Type:
                           </Label>
@@ -226,7 +251,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                               <option value={4}>Liquid</option>
                             </select>
                           </div>
-                        </FormGroup>
+                        </FormGroup> */}
 
                         {/* Top product */}
                         <div className="form-group row">
@@ -306,9 +331,11 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           </Label>
                           <input
                             accept="image/*"
-                            style={{ display: "none" }}
+                            // style={{ display: "none" }}
+                            style={{ marginLeft: "15px" }}
                             id="photo"
                             multiple
+                            required
                             // value={photo}
                             onChange={(e) => {
                               var output = document.getElementById("photo");
@@ -324,13 +351,13 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             }}
                             type="file"
                           />
-                          <label
+                          {/* <label
                             color="primary"
                             htmlFor="photo"
                             className="col-xl-3 col-sm-4 mb-0"
                           >
                             Add Images
-                          </label>
+                          </label> */}
                         </FormGroup>
 
                         {/* Product Code */}
@@ -387,7 +414,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             <option>60(ml)</option>
                             <option>110(ml)</option>
                           </select>
-                       </div>
+                        </div>
                       </FormGroup>
 
                       {/* Total Products  (QTD) */}
@@ -481,10 +508,10 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             className="form-control digits"
                             id="category"
                           >
-                            <option value={null}></option>
-                            <option>test</option>
-                            <option>test 1</option>
-                            <option>test 2</option>
+                            <option></option>
+                            {categories.map((cat) => (
+                              <option>{cat.category}</option>
+                            ))}
                           </select>
                         </div>
                       </FormGroup>
