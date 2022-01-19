@@ -28,7 +28,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   const [categories, setCategories] = useState([]);
   const [qtd, setQuantity] = useState(0);
   const [size, setSize] = useState("");
-  const [type, setType] = useState("");
+  // const [type, setType] = useState("");
   const [color, setColor] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
@@ -113,6 +113,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     const discount = e.target.discount.value;
     const name = e.target.name.value;
     const alias_color = e.target.alias_color.value;
+    const type = "fake";
     const uri_image =
       "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.missnails.com.br%2Funhas%2Fstar-nail%2Facrygel-star-nails-28g&psig=AOvVaw1O-2ncWAq_AcOpR3-FOKMu&ust=1642476359115000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMDk4LHrt_UCFQAAAAAdAAAAABAD";
     const id_category = 1;

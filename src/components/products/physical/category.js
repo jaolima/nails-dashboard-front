@@ -20,7 +20,6 @@ import {
   Row,
 } from "reactstrap";
 import api from "../../../services/api";
-import { data } from "../../../assets/data/category";
 
 const Category = () => {
   const [open, setOpen] = useState(false);
