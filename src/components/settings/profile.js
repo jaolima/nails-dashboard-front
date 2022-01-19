@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import designer from "../../assets/images/dashboard/designer.jpg";
 import TabsetProfile from "./tabset-profile";
 import Breadcrumb from "../common/breadcrumb";
-import { Card, CardBody, Col, Container, Media, Row, Button } from "reactstrap";
+import { Card, CardBody, Col, Container, Row, Button } from "reactstrap";
 
 
 const Profile = () => {

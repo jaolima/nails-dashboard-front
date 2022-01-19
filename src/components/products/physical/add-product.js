@@ -1,12 +1,7 @@
 import React, { Fragment, useState } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import CKEditors from "react-ckeditor-component";
-// import { connect } from "react-redux";
-// import * as productAction from "../../../actions/products.action";
-// import api from "../../../services/api";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-
 import {
   Card,
   CardBody,
@@ -23,7 +18,6 @@ import {
 
 import one from "../../../assets/images/pro3/1.jpg";
 import user from "../../../assets/images/user.png";
-import api from "../../../services/api";
 import axios from "axios";
 
 const Add_product = (props, { afterPaste, onBlur, onChange }) => {

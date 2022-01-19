@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Breadcrumb from "../../common/breadcrumb";
-import data from "../../../assets/data/physical_list";
 import { Edit, Trash2 } from "react-feather";
 import { Button, Card, CardBody, Col, Container, Row } from "reactstrap";
 import api from "../../../services/api";

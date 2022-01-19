@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import "react-toastify/dist/ReactToastify.css";
-import { data } from "../../../assets/data/category";
 import Datatable from "../../common/datatable";
 import {
   Button,
@@ -48,9 +47,6 @@ const Category = () => {
             });
           };
           setCategories(dataFormat);
-          console.log("perreps");
-          console.log(dataFormat);
-          console.log(categories);
         }
       })
       .catch((error) => {
