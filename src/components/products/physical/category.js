@@ -102,7 +102,7 @@ const Category = () => {
                         className="modal-title f-w-600"
                         id="exampleModalLabel2"
                       >
-                        Add Physical Product
+                        Add category
                       </h5>
                     </ModalHeader>
                     <Form onSubmit={handleValidSubmit}>
@@ -112,7 +112,7 @@ const Category = () => {
                             htmlFor="recipient-name"
                             className="col-form-label"
                           >
-                            Category Name :
+                            Name :
                           </Label>
                           <Input
                             type="text"

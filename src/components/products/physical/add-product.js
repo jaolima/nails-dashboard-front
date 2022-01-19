@@ -116,7 +116,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-      const {data} = res;
+        const { data } = res;
         Swal.fire({
           title: "Success!",
           text: data,
@@ -128,7 +128,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
           icon: "error",
           title: "Server error...",
           text: error,
-          footer: 'Contact support',
+          footer: "Contact support",
         });
         console.log(error);
         console.log("error");
@@ -364,13 +364,30 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             className="form-control digits"
                             id="size"
                           >
-                             <option value={null}></option>
-                            <option>Small</option>
-                            <option>Medium</option>
-                            <option>Large</option>
-                            <option>Extra Large</option>
+                            <option value={null}></option>
+                            <option>5(g)</option>
+                            <option>15(g)</option>
+                            <option>25(g)</option>
+                            <option>30(g)</option>
+                            <option>50(g)</option>
+                            <option>300(g)</option>
+                            <option>75(ml)</option>
+                            <option>30(ml)</option>
+                            <option>15(ml)</option>
+                            <option>100(ml)</option>
+                            <option>150(ml)</option>
+                            <option>200(ml)</option>
+                            <option>250(ml)</option>
+                            <option>500(ml)</option>
+                            <option>1(L)</option>
+                            <option>5(L)</option>
+                            <option>12(ml)</option>
+                            <option>55(ml)</option>
+                            <option>90(ml)</option>
+                            <option>60(ml)</option>
+                            <option>110(ml)</option>
                           </select>
-                        </div>
+                       </div>
                       </FormGroup>
 
                       {/* Total Products  (QTD) */}
@@ -426,7 +443,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             className="form-control digits"
                             id="color"
                           >
-                             <option value={null}></option>
+                            <option value={null}></option>
                             <option>Blue</option>
                             <option>Red</option>
                             <option>Green</option>
@@ -464,7 +481,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             className="form-control digits"
                             id="category"
                           >
-                             <option value={null}></option>
+                            <option value={null}></option>
                             <option>test</option>
                             <option>test 1</option>
                             <option>test 2</option>
