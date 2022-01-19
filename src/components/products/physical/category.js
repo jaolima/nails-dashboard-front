@@ -20,10 +20,12 @@ import {
   Row,
 } from "reactstrap";
 import api from "../../../services/api";
+import { data } from "../../../assets/data/category";
 
 const Category = () => {
   const [open, setOpen] = useState(false);
-  const [categories, setCategories] = useState([{}]);
+  const [categories, setCategories] = useState([]);
+  const [openTable, setOpenTable] = useState(false);
 
   const onOpenModal = () => {
     setOpen(true);
@@ -32,21 +34,37 @@ const Category = () => {
   const onCloseModal = () => {
     setOpen(false);
   };
+  const handleValidSubmit = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+
+    api.post("/categories", { name: name }).then((res) => {
+      const {name} = res.data;
+      setOpenTable(false);
+      console.log(name)
+      setCategories([...categories, {category: name }]);
+      setOpenTable(true);
+    });
+  };
+  console.log(categories, "categories");
 
   useEffect(() => {
     api
       .get("categories")
       .then((res) => {
         const data = res.data;
-        console.log(data);
         var dataFormat = [];
+
         if (data) {
-          data.map = (item) => {
+          data.map(function (item) {
             dataFormat.push({
               category: item.name,
             });
-          };
-          setCategories(dataFormat);
+          });
+          if (dataFormat) {
+            setCategories(dataFormat);
+            setOpenTable(true);
+          }
         }
       })
       .catch((error) => {
@@ -87,8 +105,8 @@ const Category = () => {
                         Add Physical Product
                       </h5>
                     </ModalHeader>
-                    <ModalBody>
-                      <Form>
+                    <Form onSubmit={handleValidSubmit}>
+                      <ModalBody>
                         <FormGroup>
                           <Label
                             htmlFor="recipient-name"
@@ -96,7 +114,12 @@ const Category = () => {
                           >
                             Category Name :
                           </Label>
-                          <Input type="text" className="form-control" />
+                          <Input
+                            type="text"
+                            name="name"
+                            id="name"
+                            className="form-control"
+                          />
                         </FormGroup>
                         {/* <FormGroup>
                           <Label
@@ -111,35 +134,33 @@ const Category = () => {
                             type="file"
                           />
                         </FormGroup> */}
-                      </Form>
-                    </ModalBody>
-                    <ModalFooter>
-                      <Button
-                        type="button"
-                        color="primary"
-                        onClick={() => onCloseModal("VaryingMdo")}
-                      >
-                        Save
-                      </Button>
-                      <Button
-                        type="button"
-                        color="secondary"
-                        onClick={() => onCloseModal("VaryingMdo")}
-                      >
-                        Close
-                      </Button>
-                    </ModalFooter>
+                      </ModalBody>
+                      <ModalFooter>
+                        <Button type="submit" color="primary">
+                          Save
+                        </Button>
+                        <Button
+                          type="button"
+                          color="secondary"
+                          onClick={() => onCloseModal("VaryingMdo")}
+                        >
+                          Close
+                        </Button>
+                      </ModalFooter>
+                    </Form>
                   </Modal>
                 </div>
                 <div className="clearfix"></div>
                 <div id="basicScenario" className="product-physical">
-                  <Datatable
-                    myData={categories}
-                    multiSelectOption={false}
-                    pageSize={10}
-                    pagination={true}
-                    class="-striped -highlight"
-                  />
+                  {openTable && (
+                    <Datatable
+                      myData={categories}
+                      multiSelectOption={false}
+                      pageSize={10}
+                      pagination={true}
+                      class="-striped -highlight"
+                    />
+                  )}
                 </div>
               </CardBody>
             </Card>

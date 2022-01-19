@@ -18,6 +18,7 @@ const Datatable = ({ myData, myClass, multiSelectOption, pagination }) => {
 	const [open, setOpen] = useState(false);
 	const [checkedValues, setCheckedValues] = useState([]);
 	const [data, setData] = useState(myData);
+	
 	const selectRow = (e, i) => {
 		if (!e.target.checked) {
 			setCheckedValues(checkedValues.filter((item, j) => i !== item));
