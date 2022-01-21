@@ -472,9 +472,15 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             id="color"
                           >
                             <option value={null}></option>
-                            <option>Blue</option>
-                            <option>Red</option>
-                            <option>Green</option>
+                            <option>RED</option>
+                            <option>ORANGE</option>
+                            <option>YELLOW</option>
+                            <option>GREEN</option>
+                            <option>BLUE</option>
+                            <option>INDIGO</option>
+                            <option>VIOLET</option>
+                            <option>BLACK</option>
+                            <option>WHITE </option>
                           </select>
                         </div>
                       </FormGroup>

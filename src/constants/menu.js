@@ -16,11 +16,11 @@ export const MENUITEMS = [
     active: false,
     children: [
       { path: "/products/physical/category", title: "Category", type: "link" },
-      {
-        path: "/products/physical/sub-category",
-        title: "Sub Category",
-        type: "link",
-      },
+      // {
+      //   path: "/products/physical/sub-category",
+      //   title: "Sub Category",
+      //   type: "link",
+      // },
       {
         path: "/products/physical/product-list",
         title: "Product List",
