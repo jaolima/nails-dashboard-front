@@ -5,6 +5,7 @@ import { Button, Card, CardBody, Col, Container, Row } from "reactstrap";
 import api from "../../../services/api";
 
 const Product_list = () => {
+
   const [products, setProducts] = useState([]);
 
   useEffect(() => {

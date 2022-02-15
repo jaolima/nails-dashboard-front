@@ -35,6 +35,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   const [file, setFile] = useState();
   const [photo, setPhoto] = useState();
   const [imgUrl, setImgUrl] = useState();
+  const [price, setPrice] = useState();
   const [dummyimgs, setDummyimgs] = useState([
     { img: user },
     { img: user },
@@ -43,6 +44,23 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     { img: user },
     { img: user },
   ]);
+
+  const priceMask = (e) => {
+    
+    var numb = e.match(/\d/g);
+    numb = numb.join("");
+
+    let dollarUS = Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      useGrouping: true,
+      maximumSignificantDigits: 3,
+    });
+
+    const formatPrice = dollarUS.format(parseInt(numb));
+    setPrice(formatPrice);
+    return formatPrice;
+  };
 
   useEffect(() => {
     api
@@ -299,7 +317,9 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                               className="form-control mb-0"
                               name="price"
                               id="price"
-                              type="number"
+                              type="text"
+                              value={price}
+                              onChange={(e) => priceMask(e.target.value)}
                               required
                             />
                           </div>
