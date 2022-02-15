@@ -35,7 +35,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   const [file, setFile] = useState();
   const [photo, setPhoto] = useState();
   const [imgUrl, setImgUrl] = useState();
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState('');
   const [dummyimgs, setDummyimgs] = useState([
     { img: user },
     { img: user },
@@ -46,20 +46,24 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   ]);
 
   const priceMask = (e) => {
-    
     var numb = e.match(/\d/g);
-    numb = numb.join("");
 
-    let dollarUS = Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      useGrouping: true,
-      maximumSignificantDigits: 3,
-    });
+    if (numb) {
+      numb = numb.join("");
 
-    const formatPrice = dollarUS.format(parseInt(numb));
-    setPrice(formatPrice);
-    return formatPrice;
+      let dollarUS = Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        useGrouping: true,
+      });
+
+      const formatPrice = dollarUS.format(parseInt(numb) / 100);
+      setPrice(formatPrice);
+      return formatPrice;
+    } else {
+      setPrice('');
+      return '';
+    }
   };
 
   useEffect(() => {
