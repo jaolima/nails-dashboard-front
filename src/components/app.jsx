@@ -32,12 +32,12 @@ const App = (props) => {
 					<Footer />
 				</div>
 			</div>
-			<div
+			{/* <div
 				className="btn-light custom-theme"
 				onClick={() => ChangeRtl(side.divName)}
 			>
 				{side.divName}
-			</div>
+			</div> */}
 		</div>
 	);
 };

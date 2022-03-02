@@ -108,20 +108,8 @@ const Header = () => {
 								<Language />
 							</li>
 
-							<li className="onhover-dropdown">
-								<Bell />
-								<span className="badge badge-pill badge-primary pull-right notification-badge">
-									1
-								</span>
-								<span className="dot"></span>
-								<Notification />
-							</li>
-							<li>
-								<a href="#javaScript" onClick={showRightSidebar}>
-									<MessageSquare />
-									<span className="dot"></span>
-								</a>
-							</li>
+						
+							
 							<UserMenu />
 						</ul>
 						<div

@@ -35,7 +35,8 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
   const [file, setFile] = useState();
   const [photo, setPhoto] = useState();
   const [imgUrl, setImgUrl] = useState();
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState("");
+  const [openDiscount, setOpenDiscount] = useState(false);
   const [dummyimgs, setDummyimgs] = useState([
     { img: user },
     { img: user },
@@ -61,8 +62,8 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
       setPrice(formatPrice);
       return formatPrice;
     } else {
-      setPrice('');
-      return '';
+      setPrice("");
+      return "";
     }
   };
 
@@ -108,7 +109,6 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     setQuantity(event.target.value);
   };
 
-  //	image upload
   const _handleImgChange = (e, i) => {
     e.preventDefault();
     let reader = new FileReader();
@@ -159,7 +159,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
 
     axios({
       method: "post",
-      url: `http://65.21.146.141:3333/products`,
+      url: `http://localhost:3333/products`,
       data: bodyFormData,
       headers: { "Content-Type": "multipart/form-data" },
     })
@@ -276,40 +276,37 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           </div>
                         </FormGroup> */}
 
-                        {/* Top product */}
-                        <div className="form-group row">
-                          <Label className="col-xl-3 col-md-4">
+                        <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
                             Top product:
                           </Label>
-                          <Row>
-                            <Col xl="3" sm="4"></Col>
-                            <Col xl="9" sm="8">
-                              <FormGroup className="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
-                                <Label className="d-block">
-                                  <Input
-                                    className="radio_animated"
-                                    id="top_products_yes"
-                                    value={true}
-                                    type="radio"
-                                    name="top_products"
-                                  />
-                                  Yes
-                                </Label>
-                                <Label className="d-block">
-                                  <Input
-                                    className="radio_animated"
-                                    id="top_products_no"
-                                    value={false}
-                                    type="radio"
-                                    name="top_products"
-                                    defaultChecked
-                                  />
-                                  No
-                                </Label>
-                              </FormGroup>
-                            </Col>
-                          </Row>
-                        </div>
+                          <div className="col-xl-8 col-sm-7">
+                            <FormGroup className="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <Label className="d-block">
+                                <Input
+                                  className="radio_animated"
+                                  id="top_products_yes"
+                                  value={true}
+                                  type="radio"
+                                  name="top_products"
+                                />
+                                Yes
+                              </Label>
+                              <Label className="d-block">
+                                <Input
+                                  className="radio_animated"
+                                  id="top_products_no"
+                                  value={false}
+                                  type="radio"
+                                  name="top_products"
+                                  defaultChecked
+                                />
+                                No
+                              </Label>
+                            </FormGroup>
+                          </div>
+                          <div className="valid-feedback">Looks good!</div>
+                        </FormGroup>
 
                         {/* Price (CHF) */}
                         <FormGroup className="form-group mb-3 row">
@@ -330,24 +327,97 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           <div className="valid-feedback">Looks good!</div>
                         </FormGroup>
 
-                        {/* Discount */}
+                        {/*Has Discount*/}
                         <FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
-                            Discount (%):
+                            Has discount:
                           </Label>
                           <div className="col-xl-8 col-sm-7">
-                            <Input
-                              className="form-control mb-0"
-                              name="discount"
-                              id="discount"
-                              type="number"
-                              maxLength={3}
-                              pattern="[+-]?\d+(?:[.,]\d+)?"
-                              required
-                            />
+                            <FormGroup className="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <Label className="d-block">
+                                <Input
+                                  className="radio_animated"
+                                  id="top_products_yes"
+                                  value={true}
+                                  type="radio"
+                                  onChange={(e) => setOpenDiscount(true)}
+                                  name="top_products"
+                                />
+                                Yes
+                              </Label>
+                              <Label className="d-block">
+                                <Input
+                                  className="radio_animated"
+                                  id="top_products_no"
+                                  value={false}
+                                  type="radio"
+                                  onChange={(e) => setOpenDiscount(false)}
+                                  name="top_products"
+                                  defaultChecked
+                                />
+                                No
+                              </Label>
+                            </FormGroup>
                           </div>
                           <div className="valid-feedback">Looks good!</div>
                         </FormGroup>
+                        {openDiscount && (
+                          <>
+                            {/* Discount */}
+                            <FormGroup className="form-group mb-3 row">
+                              <Label className="col-xl-3 col-sm-4 mb-0">
+                                How much is the discount:
+                              </Label>
+                              <div className="col-xl-2 col-sm-2">
+                                <FormGroup className="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                  <Input
+                                    className="form-control mb-0"
+                                    name="discount"
+                                    id="discount"
+                                    type="number"
+                                    max="100"
+                                    maxLength={3}
+                                    pattern="(100)|[1-9]\d?"
+                                    required
+                                  />
+                                </FormGroup>
+                              </div>
+                              (%)
+                              <div className="valid-feedback">Looks good!</div>
+                            </FormGroup>
+
+                            {/* Discount time*/}
+                            <FormGroup className="form-group mb-3 row">
+                              <Label className="col-xl-3 col-sm-4 mb-0">
+                                The discount will be available:
+                              </Label>
+                              <div className="col-xl-3 col-sm-3">
+                                <FormGroup className="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                  <Input
+                                    className="form-control mb-0"
+                                    name="discount"
+                                    id="discount"
+                                    type="date"
+                                    required
+                                  />
+                                </FormGroup>
+                              </div>
+                              until
+                              <div className="col-xl-3 col-sm-3">
+                                <FormGroup className="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                  <Input
+                                    className="form-control mb-0"
+                                    name="discount"
+                                    id="discount"
+                                    type="date"
+                                    required
+                                  />
+                                </FormGroup>
+                              </div>
+                              <div className="valid-feedback">Looks good!</div>
+                            </FormGroup>
+                          </>
+                        )}
 
                         {/* Images */}
                         <FormGroup className="form-group mb-3 row">
@@ -384,9 +454,28 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             Add Images
                           </label> */}
                         </FormGroup>
+                        </div>
 
-                        {/* Product Code */}
+                        {/* Article number */}
                         <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
+                          Article number:
+                          </Label>
+                          <div className="col-xl-8 col-sm-7">
+                            <Input
+                              className="form-control"
+                              name="barcode"
+                              id="text"
+                              required
+                            />
+                          </div>
+                          <div className="invalid-feedback offset-sm-4 offset-xl-3">
+                            Please choose Valid Code.
+                          </div>
+                        </FormGroup>
+                    
+{/* Product Code */}
+<FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
                             Product Code:
                           </Label>
@@ -395,7 +484,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                               className="form-control"
                               name="barcode"
                               id="barcode"
-                              type="number"
+                              type="text"
                               required
                             />
                           </div>
@@ -403,12 +492,10 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             Please choose Valid Code.
                           </div>
                         </FormGroup>
-                      </div>
-
                       {/* Size */}
                       <FormGroup className="form-group row">
                         <Label className="col-xl-3 col-sm-4 mb-0">Size:</Label>
-                        <div className="col-xl-8 col-sm-7">
+                        <div className="col-xl-3 col-sm-2">
                           <select
                             name="size"
                             value={size}
@@ -439,6 +526,38 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             <option>60(ml)</option>
                             <option>110(ml)</option>
                           </select>
+                        </div>
+                      </FormGroup>
+
+                      {/* Weight */}
+                      <FormGroup className="form-group row">
+                        <Label className="col-xl-3 col-sm-4 mb-0">
+                          Weight:
+                        </Label>
+                        <div className="col-xl-3 col-sm-2">
+                          <Input
+                            className="form-control"
+                            name="barcode"
+                            id="barcode"
+                            type="number"
+                            required
+                          />
+                        </div>
+                      </FormGroup>
+
+                      {/* Height */}
+                      <FormGroup className="form-group row">
+                        <Label className="col-xl-3 col-sm-4 mb-0">
+                          Height:
+                        </Label>
+                        <div className="col-xl-3 col-sm-2">
+                          <Input
+                            className="form-control"
+                            name="barcode"
+                            id="barcode"
+                            type="number"
+                            required
+                          />
                         </div>
                       </FormGroup>
 

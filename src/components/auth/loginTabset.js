@@ -19,7 +19,7 @@ const LoginTabset = () => {
 		<div>
 			<Fragment>
 				<Tabs>
-					<TabList className="nav nav-tabs tab-coupon">
+					{/* <TabList className="nav nav-tabs tab-coupon">
 						<Tab className="nav-link" onClick={(e) => clickActive(e)}>
 							<User />
 							Login
@@ -28,7 +28,7 @@ const LoginTabset = () => {
 							<Unlock />
 							Register
 						</Tab>
-					</TabList>
+					</TabList> */}
 
 					<TabPanel>
 						<Form className="form-horizontal auth-form">
@@ -65,12 +65,12 @@ const LoginTabset = () => {
 											type="checkbox"
 										/>
 										Reminder Me{" "}
-										<span className="pull-right">
+										{/* <span className="pull-right">
 											{" "}
 											<a href="/#" className="btn btn-default forgot-pass p-0">
 												lost your password
 											</a>
-										</span>
+										</span> */}
 									</Label>
 								</div>
 							</div>
@@ -83,7 +83,7 @@ const LoginTabset = () => {
 									Login
 								</Button>
 							</div>
-							<div className="form-footer">
+							{/* <div className="form-footer">
 								<span>Or Login up with social platforms</span>
 								<ul className="social">
 									<li>
@@ -107,7 +107,7 @@ const LoginTabset = () => {
 										</a>
 									</li>
 								</ul>
-							</div>
+							</div> */}
 						</Form>
 					</TabPanel>
 					<TabPanel>

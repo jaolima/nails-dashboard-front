@@ -12,7 +12,7 @@ const UserPanel = () => {
 						alt="#"
 					/>
 				</div>
-				<h6 className="mt-3 f-14">JOHN</h6>
+				<h6 className="mt-3 f-14">Admin</h6>
 				<p>general manager.</p>
 			</div>
 		</div>

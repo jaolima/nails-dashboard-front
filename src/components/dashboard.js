@@ -2,11 +2,28 @@ import React, { Fragment } from "react";
 import Breadcrumb from "./common/breadcrumb";
 import { Navigation, Box } from "react-feather";
 import CountUp from "react-countup";
-
+import axios from "axios";
 import { Card, CardBody, Col, Container, Media, Row } from "reactstrap";
 
 const Dashboard = () => {
- 
+
+  const [Products, setProducts] = React.useState(0);
+  axios({
+    method: "get",
+    url: `http://localhost:3333/products`,
+    headers: { "Content-Type": "multipart/form-data" },
+  })
+    .then((res) => {
+      const { data } = res;
+      setProducts(data.length)
+    })
+    .catch((error) => {
+      console.log(error);
+      console.log("error");
+    });
+
+
+
   return (
     <Fragment>
       <Breadcrumb title="Dashboard" parent="Dashboard" />
@@ -44,7 +61,7 @@ const Dashboard = () => {
                   <Media body className="col-8">
                     <span className="m-0">Products</span>
                     <h3 className="mb-0">
-                      $ <CountUp className="counter" end={2} />
+                      $ <CountUp className="counter" end={Products} />
                       <small> This Month</small>
                     </h3>
                   </Media>
