@@ -33,11 +33,5 @@ export const MENUITEMS = [
       },
     ],
   },
-  {
-    title: "Login",
-    path: "/auth/login",
-    icon: LogIn,
-    type: "link",
-    active: false,
-  },
+ 
 ];
