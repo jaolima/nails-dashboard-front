@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [Products, setProducts] = React.useState(0);
   axios({
     method: "get",
-    url: `http://localhost:3333/products`,
+    url: `http://65.21.146.141:3333/products`,
     headers: { "Content-Type": "multipart/form-data" },
   })
     .then((res) => {
