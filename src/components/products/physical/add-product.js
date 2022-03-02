@@ -172,6 +172,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
         });
       })
       .catch((error) => {
+        console.log(error)
         Swal.fire({
           icon: "error",
           title: "Server error...",
