@@ -135,17 +135,19 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     const barcode = e.target.barcode.value;
     const arcticleNumber = e.target.arcticleNumber.value;
     const top_products = e.target.top_products.value;
-    const discount = e.target.discount.value;
     const name = e.target.name.value;
     const alias_color = e.target.alias_color.value;
     const type = "fake";
-    const uri_image =
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.missnails.com.br%2Funhas%2Fstar-nail%2Facrygel-star-nails-28g&psig=AOvVaw1O-2ncWAq_AcOpR3-FOKMu&ust=1642476359115000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMDk4LHrt_UCFQAAAAAdAAAAABAD";
+    const uri_image = "";
     const id_category = 1;
 
     var bodyFormData = new FormData();
 
     bodyFormData.append("price", price);
+    if(e.target.discount){
+    const discount = e.target.discount.value;
+    bodyFormData.append("discount", discount);
+    }
     bodyFormData.append("barcode", barcode);
     bodyFormData.append("arcticleNumber", arcticleNumber);
     bodyFormData.append("size", size);
@@ -156,7 +158,6 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     bodyFormData.append("alias_color", alias_color);
     bodyFormData.append("name", name);
     bodyFormData.append("top_products", top_products);
-    bodyFormData.append("discount", discount);
     bodyFormData.append("uri_image", uri_image);
     bodyFormData.append("image", imgUrl);
     bodyFormData.append("id_category", id_category);
