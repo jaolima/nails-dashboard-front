@@ -129,8 +129,11 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
 
   const handleValidSubmit = (e) => {
     e.preventDefault();
-    const price = e.target.price.value;
+    
+    const p = e.target.price.value;
+    const price = p.replace(/\D/g, '')
     const barcode = e.target.barcode.value;
+    const arcticleNumber = e.target.arcticleNumber.value;
     const top_products = e.target.top_products.value;
     const discount = e.target.discount.value;
     const name = e.target.name.value;
@@ -144,6 +147,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
 
     bodyFormData.append("price", price);
     bodyFormData.append("barcode", barcode);
+    bodyFormData.append("arcticleNumber", arcticleNumber);
     bodyFormData.append("size", size);
     bodyFormData.append("type", type);
     bodyFormData.append("qtd", qtd);
@@ -465,7 +469,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                           <div className="col-xl-8 col-sm-7">
                             <Input
                               className="form-control"
-                              name="barcode"
+                              name="arcticleNumber"
                               id="text"
                               required
                             />
@@ -538,8 +542,8 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                         <div className="col-xl-3 col-sm-2">
                           <Input
                             className="form-control"
-                            name="barcode"
-                            id="barcode"
+                            name="weight"
+                            id="weight"
                             type="number"
                             required
                           />
@@ -554,8 +558,8 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                         <div className="col-xl-3 col-sm-2">
                           <Input
                             className="form-control"
-                            name="barcode"
-                            id="barcode"
+                            name="height"
+                            id="height"
                             type="number"
                             required
                           />
