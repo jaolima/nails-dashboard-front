@@ -342,22 +342,22 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                               <Label className="d-block">
                                 <Input
                                   className="radio_animated"
-                                  id="top_products_yes"
+                                  id="has_discount_yes"
                                   value={true}
                                   type="radio"
                                   onChange={(e) => setOpenDiscount(true)}
-                                  name="top_products"
+                                  name="has_discount"
                                 />
                                 Yes
                               </Label>
                               <Label className="d-block">
                                 <Input
                                   className="radio_animated"
-                                  id="top_products_no"
+                                  id="has_discount_no"
                                   value={false}
                                   type="radio"
                                   onChange={(e) => setOpenDiscount(false)}
-                                  name="top_products"
+                                  name="has_discount"
                                   defaultChecked
                                 />
                                 No
