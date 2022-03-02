@@ -3,7 +3,7 @@ import { Tabs, TabList, TabPanel, Tab } from "react-tabs";
 import { User, Unlock } from "react-feather";
 import { withRouter, useHistory } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-
+import Swal from "sweetalert2";
 const LoginTabset = () => {
 	const history = useHistory();
 
@@ -15,6 +15,24 @@ const LoginTabset = () => {
 	const routeChange = () => {
 		history.push(`${process.env.PUBLIC_URL}/dashboard`);
 	};
+
+	const submit = (e) => {
+		e.preventDefault();
+		console.log(e.target.value)
+		console.log(e.target[0].value)
+		console.log(e.target[1].value)
+		if(e.target[0].value == "kontakt@nails-factory.ch" && e.target[1].value == "Chakkaroni2"){
+		history.push(`${process.env.PUBLIC_URL}/dashboard`);
+			
+		}else {
+			Swal.fire({
+				icon: "error",
+				title: "Incorrect data",
+				text: "Login or password invalid",
+			  });
+		}
+	};
+
 	return (
 		<div>
 			<Fragment>
@@ -31,21 +49,21 @@ const LoginTabset = () => {
 					</TabList> */}
 
 					<TabPanel>
-						<Form className="form-horizontal auth-form">
+						<Form onSubmit={submit} className="form-horizontal auth-form">
 							<FormGroup>
 								<Input
 									required=""
-									name="login[username]"
+									name="username"
+									value="kontakt@nails-factory.ch"
 									type="email"
 									className="form-control"
 									placeholder="Username"
-									id="exampleInputEmail1"
 								/>
 							</FormGroup>
 							<FormGroup>
 								<Input
 									required=""
-									name="login[password]"
+									name="password"
 									type="password"
 									className="form-control"
 									placeholder="Password"
@@ -63,6 +81,7 @@ const LoginTabset = () => {
 											className="checkbox_animated"
 											id="chk-ani2"
 											type="checkbox"
+											checked
 										/>
 										Reminder Me{" "}
 										{/* <span className="pull-right">
@@ -78,36 +97,11 @@ const LoginTabset = () => {
 								<Button
 									color="primary"
 									type="submit"
-									onClick={() => routeChange()}
 								>
 									Login
 								</Button>
 							</div>
-							{/* <div className="form-footer">
-								<span>Or Login up with social platforms</span>
-								<ul className="social">
-									<li>
-										<a href="/#">
-											<i className="icon-facebook"></i>
-										</a>
-									</li>
-									<li>
-										<a href="/#">
-											<i className="icon-twitter-alt"></i>
-										</a>
-									</li>
-									<li>
-										<a href="/#">
-											<i className="icon-instagram"></i>
-										</a>
-									</li>
-									<li>
-										<a href="/#">
-											<i className="icon-pinterest-alt"></i>
-										</a>
-									</li>
-								</ul>
-							</div> */}
+							
 						</Form>
 					</TabPanel>
 					<TabPanel>
@@ -164,7 +158,7 @@ const LoginTabset = () => {
 								<Button
 									color="primary"
 									type="submit"
-									onClick={() => routeChange()}
+									// onClick={() => routeChange()}
 								>
 									Register
 								</Button>
