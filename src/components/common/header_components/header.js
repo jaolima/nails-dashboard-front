@@ -12,7 +12,7 @@ import {
 } from "react-feather";
 
 //images
-import logo from "../../../assets/images/dashboard/nailsfactory-logo.png";
+import logo from "../../../assets/images/dashboard/NailsLogo3.svg";
 
 const Header = () => {
 	const [sidebar, setSidebar] = useState(true);
@@ -76,9 +76,9 @@ const Header = () => {
 			<div className="page-main-header ">
 				<div className="main-header-right row">
 					<div className="main-header-left d-lg-none">
-						<div className="logo-wrapper">
+						<div className="logo-wrapper"  >
 							<a href="index.html">
-								<img className="blur-up lazyloaded" src={logo} alt="" />
+								<img className="blur-up lazyloaded"src={logo} alt="" />
 							</a>
 						</div>
 					</div>
@@ -93,9 +93,7 @@ const Header = () => {
 					</div>
 					<div className="nav-right col">
 						<ul className={"nav-menus " + (navMenus ? "open" : "")}>
-							<li>
-								<SearchHeader />
-							</li>
+						
 							<li>
 								<a onClick={goFull} className="text-dark" href="#javaScript">
 									<Maximize2 />
