@@ -1,10 +1,18 @@
-import { Home, Box, LogIn } from "react-feather";
+import { Home, Box, LogIn, User } from "react-feather";
 
 export const MENUITEMS = [
   {
     path: "/dashboard",
     title: "Dashboard",
     icon: Home,
+    type: "link",
+    badgeType: "primary",
+    active: false,
+  },
+  {
+    path: "/users/list-user",
+    title: "Users",
+    icon: User,
     type: "link",
     badgeType: "primary",
     active: false,
