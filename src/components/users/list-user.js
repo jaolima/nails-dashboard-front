@@ -30,7 +30,7 @@ const List_user = () => {
         filter: false,
         sort: false,
         display: false,
-        viewColumns: false,
+		viewColumns: false,
       },
     },
     {
@@ -52,74 +52,75 @@ const List_user = () => {
   ];
 
   const options = {
-    filterType: "dropdown",
-    responsive: "scroll",
-    filter: true,
-    print: false,
-    rowsPerPage: 10,
-    rowsPerPageOptions: [10, 50, 100, 200, 300],
-    selectableRows: false,
-    downloadOptions: {
-      filename: "usuarios_geral",
-      separator: ";",
-      filterOptions: {
-        useDisplayedColumnsOnly: true,
-        useDisplayedRowsOnly: true,
-      },
-    },
-
-    customSearch: (searchQuery, currentRow) => {
-      const newSearchQuery = searchQuery
-        .toString()
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-      let isFound = false;
-      currentRow.forEach((col) => {
-        if (
-          col &&
-          col
-            .toString()
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .indexOf(newSearchQuery) >= 0
-        ) {
-          isFound = true;
-        }
-      });
-      return isFound;
-    },
-    customToolbarSelect: () => {},
-    textLabels: {
-      body: {
-        noMatch: "Nenhum registro correspondente encontrado ",
-        toolTip: "Ordenar",
-        columnHeaderTooltip: (column) => `Ordenar Por ${column.label}`,
-      },
-      pagination: {
-        next: "Próxima",
-        previous: "Voltar",
-        rowsPerPage: "Linhas por página:",
-        displayRows: "de",
-      },
-      toolbar: {
-        search: "Pesquisar",
-        print: "Imprimir",
-        viewColumns: "Selecionar colunas",
-        filterTable: "Filtrar",
-      },
-      filter: {
-        all: "Todos",
-        title: "Filtros",
-        reset: "Limpar",
-      },
-      viewColumns: {
-        title: "Mostrar colunas",
-        titleAria: "Mostrar/Ocultar colunas",
-      },
-    },
+	filterType: "dropdown",
+	responsive: "scroll",
+	filter: true,
+	print: false,
+	rowsPerPage: 10,
+	rowsPerPageOptions: [10, 50, 100, 200, 300],
+	selectableRows: false,
+	downloadOptions: {
+	  filename: "usuarios_geral",
+	  separator: ";",
+	  filterOptions: {
+		useDisplayedColumnsOnly: true,
+		useDisplayedRowsOnly: true,
+	  },
+	},
+  
+	customSearch: (searchQuery, currentRow) => {
+	  const newSearchQuery = searchQuery
+		.toString()
+		.toLowerCase()
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "");
+	  let isFound = false;
+	  currentRow.forEach((col) => {
+		if (
+		  col &&
+		  col
+			.toString()
+			.toLowerCase()
+			.normalize("NFD")
+			.replace(/[\u0300-\u036f]/g, "")
+			.indexOf(newSearchQuery) >= 0
+		) {
+		  isFound = true;
+		}
+	  });
+	  return isFound;
+	},
+	customToolbarSelect: () => {},
+	textLabels: {
+	  body: {
+		noMatch: "Nenhum registro correspondente encontrado ",
+		toolTip: "Ordenar",
+		columnHeaderTooltip: (column) => `Ordenar Por ${column.label}`,
+	  },
+	  pagination: {
+		next: "Próxima",
+		previous: "Voltar",
+		rowsPerPage: "Linhas por página:",
+		displayRows: "de",
+	  },
+	  toolbar: {
+		search: "Pesquisar",
+		print: "Imprimir",
+		viewColumns: "Selecionar colunas",
+		filterTable: "Filtrar",
+	  },
+	  filter: {
+		all: "Todos",
+		title: "Filtros",
+		reset: "Limpar",
+	  },
+	  viewColumns: {
+		title: "Mostrar colunas",
+		titleAria: "Mostrar/Ocultar colunas",
+	  },
+	},
   };
+  
 
   return (
     <Fragment>
@@ -130,6 +131,13 @@ const List_user = () => {
             <h5>Users list</h5>
           </CardHeader>
           <CardBody>
+            <div className="btn-popup pull-right">
+              <Link to="/users/create-user" className="btn btn-secondary">
+                Create User
+              </Link>
+            </div>
+            <div className="clearfix"></div>
+          
             <MUIDataTable data={users} columns={columns} options={options} />
             <listUsersTable />
           </CardBody>
