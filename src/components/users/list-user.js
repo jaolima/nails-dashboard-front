@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Breadcrumb from "../common/breadcrumb";
-import data from "../../assets/data/listUser";
-import Datatable from "../common/datatable";
 import { Card, CardBody, CardHeader, Container } from "reactstrap";
 import api from "../../services/api";
 import MUIDataTable from "mui-datatables";
@@ -139,7 +137,6 @@ const List_user = () => {
             <div className="clearfix"></div>
           
             <MUIDataTable data={users} columns={columns} options={options} />
-            <listUsersTable />
           </CardBody>
         </Card>
       </Container>
