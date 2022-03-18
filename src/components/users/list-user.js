@@ -129,11 +129,11 @@ const List_user = () => {
             <h5>Users list</h5>
           </CardHeader>
           <CardBody>
-            <div className="btn-popup pull-right">
+            {/* <div className="btn-popup pull-right">
               <Link to="/users/create-user" className="btn btn-secondary">
                 Create User
               </Link>
-            </div>
+            </div> */}
             <div className="clearfix"></div>
           
             <MUIDataTable data={users} columns={columns} options={options} />

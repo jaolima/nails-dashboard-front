@@ -8,14 +8,14 @@ const TabsetUser = () => {
 			<Tabs>
 				<TabList className="nav nav-tabs tab-coupon">
 					<Tab className="nav-link">Account</Tab>
-					<Tab className="nav-link">Permission</Tab>
+					{/* <Tab className="nav-link">Permission</Tab> */}
 				</TabList>
 				<TabPanel>
 					<Form className="needs-validation user-add" noValidate="">
 						<h4>Account Details</h4>
 						<FormGroup className="row">
 							<Label className="col-xl-3 col-md-4">
-								<span>*</span> First Name
+								<span>*</span> Name
 							</Label>
 							<Input
 								className="form-control col-xl-8 col-md-7"
@@ -24,17 +24,7 @@ const TabsetUser = () => {
 								required=""
 							/>
 						</FormGroup>
-						<FormGroup className="row">
-							<Label className="col-xl-3 col-md-4">
-								<span>*</span> Last Name
-							</Label>
-							<Input
-								className="form-control col-xl-8 col-md-7"
-								id="validationCustom1"
-								type="text"
-								required=""
-							/>
-						</FormGroup>
+					
 						<FormGroup className="row">
 							<Label className="col-xl-3 col-md-4">
 								<span>*</span> Email
