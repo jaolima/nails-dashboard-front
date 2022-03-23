@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import "react-toastify/dist/ReactToastify.css";
 import Datatable from "../../common/datatable";
+import Swal from "sweetalert2";
 import {
   Button,
   Card,
@@ -38,6 +39,12 @@ const Category = () => {
     const name = e.target.name.value;
 
     api.post("/categories", { name: name }).then((res) => {
+        Swal.fire({
+          title: "Success!",
+          text: "Category has been added",
+          icon: "success",
+        });
+
       const {name} = res.data;
       setOpenTable(false);
       console.log(name)
@@ -53,7 +60,6 @@ const Category = () => {
       .then((res) => {
         const data = res.data;
         var dataFormat = [];
-
         if (data) {
           data.map(function (item) {
             dataFormat.push({

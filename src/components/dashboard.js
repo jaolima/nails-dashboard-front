@@ -4,25 +4,23 @@ import { Navigation, Box } from "react-feather";
 import CountUp from "react-countup";
 import axios from "axios";
 import { Card, CardBody, Col, Container, Media, Row } from "reactstrap";
+import api from "../services/api";
 
 const Dashboard = () => {
-
   const [Products, setProducts] = React.useState(0);
-  axios({
-    method: "get",
-    url: `http://65.108.217.99:3333/products`,
-    headers: { "Content-Type": "multipart/form-data" },
-  })
+  const headers = { "Content-Type": "multipart/form-data" };
+
+  api
+    .get("products", {headers})
     .then((res) => {
+      
       const { data } = res;
-      setProducts(data.length)
+      setProducts(data.length);
     })
     .catch((error) => {
       console.log(error);
       console.log("error");
     });
-
-
 
   return (
     <Fragment>

@@ -129,9 +129,9 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
 
   const handleValidSubmit = (e) => {
     e.preventDefault();
-    
+
     const p = e.target.price.value;
-    const price = p.replace(/\D/g, '')
+    const price = p.replace(/\D/g, "");
     const barcode = e.target.barcode.value;
     const arcticleNumber = e.target.arcticleNumber.value;
     const top_products = e.target.top_products.value;
@@ -144,9 +144,9 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     var bodyFormData = new FormData();
 
     bodyFormData.append("price", price);
-    if(e.target.discount){
-    const discount = e.target.discount.value;
-    bodyFormData.append("discount", discount);
+    if (e.target.discount) {
+      const discount = e.target.discount.value;
+      bodyFormData.append("discount", discount);
     }
     bodyFormData.append("barcode", barcode);
     bodyFormData.append("arcticleNumber", arcticleNumber);
@@ -162,12 +162,9 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
     bodyFormData.append("image", imgUrl);
     bodyFormData.append("id_category", id_category);
 
-    axios({
-      method: "post",
-      url: `http://65.108.217.99:3333/products`,
-      data: bodyFormData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
+    const headers = { "Content-Type": "multipart/form-data" };
+    api
+      .post("products", bodyFormData, { headers })
       .then((res) => {
         const { data } = res;
         Swal.fire({
@@ -177,7 +174,7 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
         });
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         Swal.fire({
           icon: "error",
           title: "Server error...",
@@ -460,44 +457,44 @@ const Add_product = (props, { afterPaste, onBlur, onChange }) => {
                             Add Images
                           </label> */}
                         </FormGroup>
-                        </div>
+                      </div>
 
-                        {/* Article number */}
-                        <FormGroup className="form-group mb-3 row">
-                          <Label className="col-xl-3 col-sm-4 mb-0">
+                      {/* Article number */}
+                      <FormGroup className="form-group mb-3 row">
+                        <Label className="col-xl-3 col-sm-4 mb-0">
                           Article number:
-                          </Label>
-                          <div className="col-xl-8 col-sm-7">
-                            <Input
-                              className="form-control"
-                              name="arcticleNumber"
-                              id="text"
-                              required
-                            />
-                          </div>
-                          <div className="invalid-feedback offset-sm-4 offset-xl-3">
-                            Please choose Valid Code.
-                          </div>
-                        </FormGroup>
-                    
-{/* Product Code */}
-<FormGroup className="form-group mb-3 row">
-                          <Label className="col-xl-3 col-sm-4 mb-0">
-                            Product Code:
-                          </Label>
-                          <div className="col-xl-8 col-sm-7">
-                            <Input
-                              className="form-control"
-                              name="barcode"
-                              id="barcode"
-                              type="text"
-                              required
-                            />
-                          </div>
-                          <div className="invalid-feedback offset-sm-4 offset-xl-3">
-                            Please choose Valid Code.
-                          </div>
-                        </FormGroup>
+                        </Label>
+                        <div className="col-xl-8 col-sm-7">
+                          <Input
+                            className="form-control"
+                            name="arcticleNumber"
+                            id="text"
+                            required
+                          />
+                        </div>
+                        <div className="invalid-feedback offset-sm-4 offset-xl-3">
+                          Please choose Valid Code.
+                        </div>
+                      </FormGroup>
+
+                      {/* Product Code */}
+                      <FormGroup className="form-group mb-3 row">
+                        <Label className="col-xl-3 col-sm-4 mb-0">
+                          Product Code:
+                        </Label>
+                        <div className="col-xl-8 col-sm-7">
+                          <Input
+                            className="form-control"
+                            name="barcode"
+                            id="barcode"
+                            type="text"
+                            required
+                          />
+                        </div>
+                        <div className="invalid-feedback offset-sm-4 offset-xl-3">
+                          Please choose Valid Code.
+                        </div>
+                      </FormGroup>
                       {/* Size */}
                       <FormGroup className="form-group row">
                         <Label className="col-xl-3 col-sm-4 mb-0">Size:</Label>
