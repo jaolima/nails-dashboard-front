@@ -24,7 +24,10 @@ import api from "../../../services/api";
 
 const Category = () => {
   const [open, setOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([
+'Kategorie Name	Kategoriepfad'
+
+  ]);
   const [openTable, setOpenTable] = useState(false);
 
   const onOpenModal = () => {
