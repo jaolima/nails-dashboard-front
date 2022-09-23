@@ -207,7 +207,7 @@ const ProductList = () => {
 
   return (
     <Fragment>
-      <Breadcrumb title="User List" parent="Users" />
+      <Breadcrumb title="Product list" parent="Users" />
       <Container fluid={true}>
         <Card>
           <CardHeader>
