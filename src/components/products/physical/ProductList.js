@@ -95,7 +95,7 @@ const ProductList = () => {
         empty: true,
         customBodyRender: (_, tableMeta) => {
           const id = tableMeta.rowData[0];
-          const url = `http://65.108.217.99:3000/products/physical/edit-product/${id}`;
+          const url = `http://65.108.217.99:3001/products/physical/edit-product/${id}`;
 
           return (
             <>
