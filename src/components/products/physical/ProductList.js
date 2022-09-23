@@ -8,7 +8,12 @@ import { Navigation, Box } from "react-feather";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
-
+  const fixOptionsTable = {
+    position: "sticky",
+    right: 0,
+    zIndex: 101,
+    background: "white",
+  };
   useEffect(() => {
     api
       .get("products")
@@ -88,21 +93,44 @@ const ProductList = () => {
         filter: false,
         sort: false,
         empty: true,
-        customHeadRender: () => (
-          <div key="opcoes" style={{ top: 0, zIndex: 102 }}>
-            Opções
-          </div>
-        ),
-        //   customBodyRender: (_, tableMeta) => (
-        // 	<>
-        // 	  {props.btnLoading[tableMeta.rowData[0]] ? (
-        // 		<Spinner size="sm" color="dark" />
-        // 	  ) : (
-        // 		handleIcon(tableMeta)
-        // 	  )}
-        // 	</>
-        //   ),
-        //   setCellProps: () => ({ style: fixOptionsTable }),
+        customBodyRender: (_, tableMeta) => {
+          const id = tableMeta.rowData[0];
+          const url = `http://65.108.217.99:3000/products/physical/edit-product/${id}`;
+
+          return (
+            <>
+              <div>
+                <span>
+                  <a href={url}>
+                    <i
+                      className="fa fa-pencil"
+                      style={{
+                        width: 35,
+                        fontSize: 20,
+                        padding: 11,
+                        color: "rgb(40, 167, 69)",
+                        zIndex: -1,
+                      }}
+                    ></i>
+                  </a>
+                </span>
+                <span>
+                  <i
+                    className="fa fa-trash"
+                    style={{
+                      width: 35,
+                      fontSize: 20,
+                      padding: 11,
+                      color: "#e4566e",
+                    }}
+                  ></i>
+                </span>
+              </div>
+            </>
+          );
+        },
+
+        setCellProps: () => ({ style: fixOptionsTable }),
       },
     },
   ];
