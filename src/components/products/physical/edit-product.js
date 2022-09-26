@@ -187,7 +187,7 @@ const Edit_product = (props, { afterPaste, onBlur, onChange }) => {
 
     const headers = { "Content-Type": "multipart/form-data" };
     api
-      .post("products", bodyFormData, { headers })
+      .put(`products/${productId}`, bodyFormData, { headers })
       .then((res) => {
         const { data } = res;
         Swal.fire({
@@ -718,7 +718,7 @@ const Edit_product = (props, { afterPaste, onBlur, onChange }) => {
 
                       <div className="offset-xl-3 offset-sm-4">
                         <Button type="submit" color="primary">
-                          Add
+                          Edit
                         </Button>
                         <Button type="button" color="light">
                           Discard
