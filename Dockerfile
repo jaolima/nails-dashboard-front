@@ -1,16 +1,12 @@
-FROM nginx:1.15
-
-# Define workdir
-WORKDIR /usr/share/nginx/html
-
-# Install vim, nano
-RUN apt update -y && apt -y install bc gdb elfutils binutils wget curl apache2-utils procps iputils-ping && rm -rf /var/lib/apt/lists/*
-RUN apt update -y && apt-get install vim nano -y
-
-# Remove default nginx static assets
-RUN rm /etc/nginx/conf.d/default.conf
- 
-# Copy nginx conf from project to container
-COPY ./src/services/nginx/nginx.conf /etc/nginx/conf.d/
-
-COPY "build" "/usr/share/nginx/html/"
+# Imagem de Origem
+FROM node:16-alpine
+# Diretório de trabalho(é onde a aplicação ficará dentro do container).
+WORKDIR /app
+# Adicionando `/app/node_modules/.bin` para o $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+# Instalando dependências da aplicação e armazenando em cache.
+COPY package.json /app/package.json
+RUN npm install --silent
+RUN npm install react-scripts@3.3.1 -g --silent
+# Inicializa a aplicação
+CMD ["npm", "start"]
