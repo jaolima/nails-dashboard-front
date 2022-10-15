@@ -21,16 +21,16 @@ const LoginTabset = () => {
 		console.log(e.target.value)
 		console.log(e.target[0].value)
 		console.log(e.target[1].value)
-		if(e.target[0].value == "kontakt@nails-factory.ch" && e.target[1].value == "Chakkaroni2"){
+		// if(e.target[0].value == "kontakt@nails-factory.ch" && e.target[1].value == "Chakkaroni2"){
 		history.push(`${process.env.PUBLIC_URL}/dashboard`);
 			
-		}else {
-			Swal.fire({
-				icon: "error",
-				title: "Incorrect data",
-				text: "Login or password invalid",
-			  });
-		}
+		// }else {
+		// 	Swal.fire({
+		// 		icon: "error",
+		// 		title: "Incorrect data",
+		// 		text: "Login or password invalid",
+		// 	  });
+		// }
 	};
 
 	return (
